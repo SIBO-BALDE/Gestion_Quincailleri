@@ -1,0 +1,50 @@
+
+:root{
+    --principal:#003e1c;
+    --seconde:#fe5300;
+    --troisieme:#fff;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+}
+
+
+
+/************************************************* bannier debut ****************************************/
+#ban-quincaillerie1{
+    height: 80vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/************************************************* bannier fin ****************************************/
+
+
+/************************************************* section1 debut ****************************************/
+.icons-first-content-cheked{
+    background-color: var(--principal);
+    border: 2px solid #fff;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    font-size: 55px;
+}
+
+/************************************************* section1 fin ****************************************/
+
+
+/************************************************* section2 debut ****************************************/
+.content-about-image-and-textsection2{
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    
+}
+/************************************************* section fin ****************************************/
