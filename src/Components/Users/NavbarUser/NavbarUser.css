@@ -193,7 +193,6 @@
     width: 100% !important;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     background-color: #fff;
-   
     height: 70px;
   }
   .cartcontent{
@@ -318,5 +317,26 @@
     }
    
   } 
+  @media screen  and (max-width:991px){
+   
+    .navbarcontent{
+      margin-left: 0 !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      background-color: var(--seconde) !important;
+      width: 100%;
+    }
+    .navlinkcontenthome{
+      margin-left: 0 !important;
+      width: 100%;
+    }
+    #navbarcontentmain{
+      
+    }
+    
+    
+    
+}
  
   

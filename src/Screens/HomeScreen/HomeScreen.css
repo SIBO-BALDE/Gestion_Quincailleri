@@ -20,6 +20,45 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.content-ban-seconde-content-absolutemain{
+    position: absolute;
+    top: 190px;
+    font-family: 'Impact', sans-serif;
+    margin-left: 90px;
+    line-height: 90px;
+}
+.content-underline-ban{
+    display: grid;
+    grid-template-columns: 50% 25% 25%;
+    width: 50%;
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 70px;
+}
+.content-underline-ban-line{
+    height: 15px;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    background-color: var(--troisieme);
+}
+#content-underline-ban-line{
+    background-color: var(--seconde);
+}
+.content-icons-ban{
+    background-color: var(--seconde);
+    color: var(--troisieme);
+    width: 33px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.contentent-ban-telephone{
+    display: none;
+}
 
 /************************************************* bannier fin ****************************************/
 
@@ -37,6 +76,15 @@
     -o-border-radius: 50%;
     font-size: 55px;
 }
+.tablette-section1{
+   
+}
+.telephone-section1{
+    display: none;
+}
+.ecran-large-section1{
+    display: none;
+}
 
 /************************************************* section1 fin ****************************************/
 
@@ -47,4 +95,258 @@
     grid-template-columns: repeat(2, auto);
     
 }
-/************************************************* section fin ****************************************/
+/************************************************* section2 fin ****************************************/
+
+/************************************************* section3 debut ****************************************/
+.content-section3-main{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    width: 80%;
+    margin: 0 auto;
+}
+.content-section3-main-one{
+    height: auto;
+    width: 100%; 
+    /* display: flex; 
+    justify-content: center;
+    align-items: center;  */
+}
+.section-principal-section3-content{
+    margin-top: 90px;
+    margin-bottom: 20px;
+}
+/************************************************* section3 fin ****************************************/
+
+
+/************************************************* section4 fin ****************************************/
+#section-principal{
+    background-color: #003e1c;
+    border-top-right-radius: 10px ;
+    border-top-left-radius:10px ;
+    height: auto !important;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    
+
+}
+
+.content-main-bacground-section3-seconde-maincontent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+   
+    
+
+}
+
+
+.content-main-bacground-section3-seconde{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    
+   
+}
+.content-main-bacground-section3-one{
+    background-image: url('../../images/plomberie.PNG');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    opacity: 0.7;
+}
+.content-main-bacground-section3-two{
+    background-image: url('../../images/Construction.PNG');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   width: 100%;
+    height: 200px;
+    opacity: 0.7;
+}
+.content-main-bacground-section3-three{
+    background-image: url('../../images/electricité1.PNG');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   width: 100%;
+    height: 200px;
+    opacity: 0.7;
+}
+.line-content-section4{
+    width: 250px;
+    height: 50px;
+    border: 5px solid #fe5300;
+    color: #fe5300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+   
+/************************************************* section4 fin ****************************************/
+
+/************************************************* madias queries ban debut ************************************/
+@media screen  and (max-width:926px){
+    .ban-images-home{
+        height: auto !important;
+    }
+    .content-ban-seconde-content-absolutemain{
+        position: absolute;
+        top: 150px;
+        font-family: 'Impact', sans-serif;
+        margin-left: 20px;
+        
+    }
+    .content-underline-ban{
+       
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .content-phone-number-ban-home{
+        display: none;
+    }
+    
+}
+@media screen  and (max-width:700px){
+    .contentent-ban-telephone{
+        display: block;
+        margin-top: 30px;
+    }
+    .contentent-ban-pc{
+        display: none;
+    }
+    #content-icons-section-tablette{
+        padding: 0;
+        width: 90% !important;
+    }
+    
+}
+/************************************************* madias queries ban fin ****************************************/
+
+
+/************************************************* madias queries section1 debut *******************************/
+@media screen  and (max-width:1335px){
+    #content-icons-section-tablette{
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: baseline;
+    }
+    #content-background-section1{
+        height: 170px !important;
+        width: auto;
+    }
+    /* apropos debut */
+    .content-about-image-and-textsection2{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+    .content-image-about-home{
+        height: auto;
+        width: auto !important;
+    }
+    /* apropos fin */
+    
+    
+}
+@media screen  and (max-width:1125px){
+   /* section3 debut */
+   .content-section3-main{
+    display: flex;
+    flex-wrap: wrap;
+   }
+   /* section3 fin */
+
+   /* section4 debut */
+   .content-main-bacground-section3-seconde{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 20px; 
+   
+}
+
+.content-main-bacground-section3-seconde-maincontent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+   /* section4 fin */
+
+   
+    
+    
+}
+@media screen  and (max-width:849px){
+    #content-background-section1{
+        display: grid !important;
+        grid-template-columns: repeat(2,1fr);
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px;
+        height: auto !important;
+        padding: 30px 0;
+        
+    }
+    
+    
+}
+@media screen  and (max-width:766px){
+    .content-main-bacground-section3-seconde{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+       
+       
+        
+        
+       
+    }
+  
+    
+    
+}
+@media screen  and (max-width:575px){
+    .content-main-bacground-section3-seconde-maincontent{
+       padding-left: 30px;
+       padding-right: 30px;
+        
+    }
+    
+  
+    
+    
+}
+@media screen  and (max-width:553px){
+    #content-background-section1{
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px;
+        height: auto !important;
+        padding: 30px 0;
+        
+    }
+    
+    
+}
+/************************************************* madias queries section1 fin **********************************/
+
+

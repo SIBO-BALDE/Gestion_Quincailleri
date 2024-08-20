@@ -1,0 +1,161 @@
+
+:root{
+    --principal:#003e1c;
+    --seconde:#fe5300;
+    --troisieme:#fff;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+}
+
+.content-backgoround-main-product-ban-one{
+    width: 100%;
+    height: 300px;
+    margin-top: 110px;
+    
+    /* border-bottom-left-radius: 50px  ;
+    border-bottom-right-radius: 50px ;
+    border-bottom: 5px solid var(--seconde); */
+    margin-bottom: 300px;
+
+}
+
+.content-backgoround-main-product-ban{
+    width: 100%;
+    height: 100%;
+    background-color: var(--principal);
+    
+    
+
+}
+.content-position-relative-ban-product{
+    position: absolute;
+    top: 230px;
+    font-family: 'Impact', sans-serif;
+    color: var(--troisieme);
+    display: flex !important;
+    justify-content: center !important;
+    margin-left: 100px;
+    height: 420px;
+    width: 580px; 
+    background-color: var(--troisieme) !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    
+    
+}
+#flex-content-ban-product{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin-top: 120px;
+
+}
+#box-content-form{
+    width: 100%;
+    margin-bottom: 20px !important ;
+}
+#form-btn-box{
+    background-color: var(--seconde);
+    border: none;
+    color: var(--troisieme);
+}
+.content-contact-left-icon{
+    width: 60px;
+    height: 60px;
+    background-color: var(--seconde);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--troisieme);
+    font-size: 35px;
+}
+.content-contact-left-icon-text{
+    color: var(--troisieme);
+}
+
+.content-medium-devise{
+    display: none;
+}
+
+
+/************************************************* madias queries debut *******************************/
+@media screen  and (max-width:1096px){
+    .content-medium-devise{
+        display: block;
+    }
+    .content-large-devise{
+        display: none;
+    }
+    .title-content-medium-content{
+        margin: 0 !important;
+        text-align: center;
+    }
+    .content-position-relative-ban-product{
+        position: absolute;
+        top: 280px;
+        font-family: 'Impact', sans-serif;
+        color: var(--troisieme);
+        display: flex !important;
+        justify-content: center !important;
+        margin-left: 0;
+        height: 420px;
+        width: 580px; 
+        background-color: var(--troisieme) !important;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        
+        
+    }
+    .content-backgoround-main-product-ban-one{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    
+    
+    
+}
+@media screen  and (max-width:629px){
+   
+    .content-position-relative-ban-product{
+        position: absolute;
+        top: 280px;
+        font-family: 'Impact', sans-serif;
+        color: var(--troisieme);
+        display: flex !important;
+        justify-content: center !important;
+        margin-left: 0;
+        height: auto !important;
+        width: 70%; 
+        background-color: var(--troisieme) !important;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        padding-bottom: 20px;    
+        
+    }
+    .content-backgoround-main-product-ban-one{
+        margin-bottom: 350px;
+    }
+   
+
+    
+    
+    
+}
+@media screen  and (max-width:414px){
+    .title-content-medium-content{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+   
+    
+   
+
+    
+    
+    
+}
