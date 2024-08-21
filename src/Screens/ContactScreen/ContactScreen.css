@@ -11,23 +11,36 @@
     box-sizing: border-box;
     
 }
-
-.content-backgoround-main-product-ban-one{
+.content-background-contact-first-content{
     width: 100%;
     height: 300px;
     margin-top: 110px;
-    
-    /* border-bottom-left-radius: 50px  ;
-    border-bottom-right-radius: 50px ;
-    border-bottom: 5px solid var(--seconde); */
-    margin-bottom: 300px;
+    margin-bottom: 30px !important;
+    border-bottom: 5px solid var(--seconde);
+    margin-bottom: 390px;
 
 }
-
-.content-backgoround-main-product-ban{
+.content-backgoround-main-product-ban-home-okay{
     width: 100%;
     height: 100%;
     background-color: var(--principal);
+
+}
+
+#content-backgoround-main-product-ban-one-contact-main{
+    width: 100%;
+    height: 300px;
+    margin-top: 110px;
+    margin-bottom: 300px;
+    
+
+}
+
+#content-backgoround-main-product-ban-contact{
+    width: 100%;
+    height: 100%;
+    background-color: var(--principal);
+    
     
     
 
@@ -38,20 +51,21 @@
     font-family: 'Impact', sans-serif;
     color: var(--troisieme);
     display: flex !important;
+    flex-direction: column;
     justify-content: center !important;
     margin-left: 100px;
     height: 420px;
     width: 580px; 
     background-color: var(--troisieme) !important;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    
-    
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;  
 }
+
 #flex-content-ban-product{
     display: flex;
     flex-direction: column;
-    width: 70%;
-    margin-top: 120px;
+    width: 100%;
+    margin-top: 40px;
+    padding:0 50px ;
 
 }
 #box-content-form{
@@ -80,6 +94,22 @@
 .content-medium-devise{
     display: none;
 }
+/* correction */
+.content-backgoround-main-product-ban-one-contact{
+    width: 100%;
+    height: 300px !important;
+    margin-top: 110px;
+    margin-bottom: 30px !important;
+    margin-bottom: 390px;
+
+}
+.content-backgoround-main-product-ban-two-middle{
+    width: 100%;
+    height: 100%;
+    background-color: var(--principal);
+   
+
+}
 
 
 /************************************************* madias queries debut *******************************/
@@ -96,7 +126,7 @@
     }
     .content-position-relative-ban-product{
         position: absolute;
-        top: 280px;
+        top: 240px;
         font-family: 'Impact', sans-serif;
         color: var(--troisieme);
         display: flex !important;
@@ -109,11 +139,12 @@
         
         
     }
-    .content-backgoround-main-product-ban-one{
+    .content-backgoround-main-product-ban-one-contact{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        
     }
 
     
@@ -135,11 +166,15 @@
         background-color: var(--troisieme) !important;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         padding-bottom: 20px;    
+        padding-top: 20px;    
         
     }
-    .content-backgoround-main-product-ban-one{
+    .content-backgoround-main-product-ban-one-contact{
+        
         margin-bottom: 350px;
+        
     }
+    
    
 
     

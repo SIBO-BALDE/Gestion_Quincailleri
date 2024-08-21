@@ -14,12 +14,32 @@
 /************************************************* bannier debut ****************************************/
 .content-backgoround-main-product-ban-one{
     width: 100%;
-    height: 220px;
+    height: 170px !important;
     margin-top: 110px;
-    margin-bottom: 50px;
+    margin-bottom: 30px !important;
     border-bottom-left-radius: 50px  ;
     border-bottom-right-radius: 50px ;
     border-bottom: 5px solid var(--seconde);
+    margin-bottom: 50px;
+
+}
+#flex-content-ban-product-one{
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    width: 100%;
+    margin-top: 140px;
+    align-items: center;
+   
+
+}
+.content-position-relative-ban-product-one{
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center;
+    width: 100%;
+
 
 }
 
@@ -32,18 +52,18 @@
     border-bottom: 5px solid var(--troisieme);
 
 }
-.content-position-relative-ban-product{
+.content-position-relative-ban-product-one{
     position: absolute;
-    top: 200px;
+    top: 40px;
     font-family: 'Impact', sans-serif;
     color: var(--troisieme);
     display: flex !important;
     justify-content: center !important;
-    margin-left: 100px;
+    /* margin-left: 50px; */
     
 }
 .contenu-moyenne-ecran{
-    /* display: none !important;; */
+    display: none !important;;
 }
 
 /************************************************* bannier fin ****************************************/
@@ -57,7 +77,7 @@
     background-color: var(--troisieme);
     padding-top: 30px;
     padding-bottom: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 /************************************************* produits fin ****************************************/
@@ -75,6 +95,10 @@
         background-color: var(--troisieme);
         padding-top: 30px;
         padding-bottom: 30px;
+        margin-bottom: 30px !important;
+    }
+    .contenu-moyenne-ecran{
+        display: block !important;
     }
     #contenu-moyenne-ecran{
         display: block;

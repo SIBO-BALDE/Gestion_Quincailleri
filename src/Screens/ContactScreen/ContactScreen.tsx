@@ -92,8 +92,8 @@ export default function ContactScreen() {
             </div>
 
             <div className="content-large-devise">
-              <Card variant="outlined" className='content-backgoround-main-product-ban-one'>
-                            <div className='content-backgoround-main-product-ban' style={{paddingTop:'50px'}}>
+              <Card variant="outlined" className='content-background-contact-first-content'>
+                            <div className='content-backgoround-main-product-ban-home-okay' style={{paddingTop:'50px'}}>
                             <h2 style={{ marginLeft:'70px', }} className="text-white">Contactez nous pour tout vos besoins en matier d'équipage quincaillerie</h2>
                             <div style={{display:'flex', justifyContent:'center',marginTop:'50px', marginLeft:'600px'}}>
                               <div className="">
@@ -111,9 +111,7 @@ export default function ContactScreen() {
                             
                             </div>
                             <Card variant="outlined" className='content-position-relative-ban-product'>
-                              {/* <div style={{display:'flex', justifyContent:'center',height:'110px', width:'160px'}}>
-                                  <Image src="https://res.cloudinary.com/dtquwiu3x/image/upload/v1722176235/AR-RAHMANE-fond-blanc-removebg-preview_n0oqaf.png" style={{width:'100%', height:'100%'}} />
-                              </div> */}
+                            <div><h2 className="text-center w-100" style={{color:'#fe5300'}}>Contactez Nous !</h2></div>
                   
                                 <div className='flex-content-ban-product' id='flex-content-ban-product'>
                                       <Box
@@ -168,17 +166,15 @@ export default function ContactScreen() {
 
             </div>
             <div className="content-medium-devise">
-              <Card variant="outlined" className='content-backgoround-main-product-ban-one'>
-                            <div className='content-backgoround-main-product-ban' style={{paddingTop:'50px'}}>
+              <Card variant="outlined" className='content-backgoround-main-product-ban-one-contact'>
+                
+                            <div className='content-backgoround-main-product-ban-two-middle' style={{paddingTop:'50px'}}>
                             <h2 style={{ marginLeft:'70px', }} className="text-white title-content-medium-content">Contactez nous pour tout vos besoins en matier d'équipage quincaillerie</h2>
                            
                             
                             </div>
                             <Card variant="outlined" className='content-position-relative-ban-product'>
-                              {/* <div style={{display:'flex', justifyContent:'center',height:'110px', width:'160px'}}>
-                                  <Image src="https://res.cloudinary.com/dtquwiu3x/image/upload/v1722176235/AR-RAHMANE-fond-blanc-removebg-preview_n0oqaf.png" style={{width:'100%', height:'100%'}} />
-                              </div> */}
-                  
+                              <div><h2 className="text-center" style={{color:'#fe5300'}}>Contactez Nous!</h2></div>
                                 <div className='flex-content-ban-product' id='flex-content-ban-product'>
                                       <Box
                                       sx={{

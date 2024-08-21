@@ -23,8 +23,8 @@ export default function ProductScreen() {
                           <div className='content-backgoround-main-product-ban'>
                            
                            </div>
-                           <div className='content-position-relative-ban-product'>
-                               <div className='flex-content-ban-product' id='flex-content-ban-product'>
+                           <div className='content-position-relative-ban-product-one'>
+                               <div className='flex-content-ban-product w-100' id='flex-content-ban-product-one'>
                                
                                <h2 id='title-ban-product-relative-position'>Nos differents produits selon les catégories</h2>
                               

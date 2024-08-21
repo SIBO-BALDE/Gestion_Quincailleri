@@ -1,10 +1,10 @@
   import React from 'react'
   import NavbarUser from '../../Components/Users/NavbarUser/NavbarUser'
   import './HomeScreen.css'
-  import { Button, Image } from 'react-bootstrap'
+  import { Image } from 'react-bootstrap'
   import  Imageappropo  from '../../images/appropos.png'
   import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-  import { faBellConcierge, faBurger, faCheck, faCopyright, faFaceSmile, faMoneyCheckDollar, faPhone } from '@fortawesome/free-solid-svg-icons'
+  import { faBellConcierge, faBurger, faCheck, faCopyright, faFaceSmile, faMoneyCheckDollar, faPhone, faTag } from '@fortawesome/free-solid-svg-icons'
   // import RetroGrid from "@/components/magicui/retro-grid";
   import RetroGrid from "../../@/components/magicui/retro-grid";
   import Marquee from "../../@/components/magicui/marquee";
@@ -12,6 +12,7 @@
   import omar from '../../images/temoin_omar.jpeg'
   import ban from '../../images/ban-arrahmane-sans-contenu.png'
   import Footer from '../../Components/Users/Footer/Footer'
+ import { Button, Card } from '@mui/material'
 
   //************************** */ pour la section partnaire debut ****************************//
   const reviews = [
@@ -244,7 +245,7 @@
                   <p className=' text-white' style={{textAlign:'justify'}}>
                   Chez <strong style={{color:'#fe5300'}}>AR-RAHMANE</strong>, nous ne nous contentons pas de vendre des produits de quincaillerie ; nous nous efforçons également de créer une expérience d'achat fluide et agréable. Notre plateforme est conçue pour vous offrir une recherche facile, des descriptions détaillées et des recommandations personnalisées, afin que vous trouviez exactement ce dont vous avez besoin. De plus, nous nous engageons à des délais de livraison rapides et à un service après-vente réactif pour garantir que chaque commande soit traitée avec le plus grand soin. Que vous soyez un professionnel du bâtiment ou un bricoleur passionné, AR-RAHMANE est là pour vous offrir des solutions fiables et pratiques pour tous vos projets.
                   </p>
-                  <Button style={{width:'100%', marginTop:'30px', backgroundColor:'#fe5300',border:'none'}}>Savoir plus</Button>
+                  <Button style={{width:'100%', marginTop:'30px', backgroundColor:'#fe5300',border:'none',color:'white'}}>Savoir plus</Button>
                 </div>
                 
               </div>
@@ -257,33 +258,70 @@
           <section className='section-principal-section3-content'>
             <h3 className='text-center mb-5'>Quelqu'un de nos produits</h3>
             <div className='content-section3-main pb-5'>
-              <div className='content-section3-main-one '>
-                <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723662979/you-will-never-leave-me-dark-anymore_pei2cy.jpg'style={{width:'100%',height:'100%'}} />
-                <h6 className='text-center mt-3'>Prise electrique </h6>
-              </div>
-              <div className='content-section3-main-one'>
-                <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723062363/chaise-anglais_teo2wl.png'style={{width:'100%',height:'100%'}} />
-                <h6 className='text-center mt-3'>Chaise anglaise</h6>
-              </div>
-              <div className='content-section3-main-one'>
-                <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723062363/file-produit_ipopc4.png' style={{width:'100%',height:'100%'}} />
-                <h6 className='text-center  mt-3'>Filet electronique</h6>
-              </div>
-              <div className='content-section3-main-one'>
-                <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723062375/broullette_avnnvr.png' style={{width:'100%',height:'100%'}} />
-                <h6 className='text-center mt-3 '>Filet electronique</h6>
-              </div>
-              <div className='content-section3-main-one'>
-                <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723062386/zing_kea99q.png' style={{width:'100%',height:'100%'}}/>
-                <h6 className='text-center  mt-3'>Zinc</h6>
-              </div>
-              <div className='content-section3-main-one'>
-                <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723062383/fer-produit_zmzfcz.png' style={{width:'100%',height:'100%'}}/>
-                <h6 className='text-center mt-3'>Fer</h6>
-              </div>
+              <div>
+                <Card variant="outlined"  className='content-section3-main-one'>
+                  <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723743864/prise1_lawg7g.png' style={{width:'80%',height:'80%'}} />
+                </Card>
+                <Card variant="outlined"  id='prix-content-product-main'>
+                  <div style={{paddingTop:'9px'}}><h6><FontAwesomeIcon  icon={faTag} style={{marginRight:'5px'}}/>2500FCFA</h6></div>
+                  <div><Button id='content-boutton-and-input-main-btn-product'style={{paddingTop:'10px'}} >Acheter</Button></div>
+                </Card>
 
+              </div>
+              <div>
+                <Card variant="outlined"  className='content-section3-main-one'>
+                  <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723743386/fer_d7edva.png' style={{width:'80%',height:'80%'}} />
+                </Card>
+                <Card variant="outlined"  id='prix-content-product-main'>
+                  <div style={{paddingTop:'9px'}}><h6><FontAwesomeIcon  icon={faTag} style={{marginRight:'5px'}}/>2500FCFA</h6></div>
+                  <div><Button id='content-boutton-and-input-main-btn-product'style={{paddingTop:'10px'}} >Acheter</Button></div>
+                </Card>
+
+              </div>
+              <div>
+                <Card variant="outlined"  className='content-section3-main-one'>
+                  <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723743486/poign%C3%A9-porte_cxpa4b.png' style={{width:'80%',height:'80%'}} />
+                </Card>
+                <Card variant="outlined"  id='prix-content-product-main'>
+                  <div style={{paddingTop:'9px'}}><h6><FontAwesomeIcon  icon={faTag} style={{marginRight:'5px'}}/>2500FCFA</h6></div>
+                  <div><Button id='content-boutton-and-input-main-btn-product'style={{paddingTop:'10px'}} >Acheter</Button></div>
+                </Card>
+
+              </div>
+              <div>
+                <Card variant="outlined"  className='content-section3-main-one'>
+                  <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723743917/robinet_dtemqx.png' style={{width:'80%',height:'80%'}} />
+                </Card>
+                <Card variant="outlined"  id='prix-content-product-main'>
+                  <div style={{paddingTop:'9px'}}><h6><FontAwesomeIcon  icon={faTag} style={{marginRight:'5px'}}/>2500FCFA</h6></div>
+                  <div><Button id='content-boutton-and-input-main-btn-product'style={{paddingTop:'10px'}} >Acheter</Button></div>
+                </Card>
+
+              </div>
+              <div>
+                <Card variant="outlined"  className='content-section3-main-one'>
+                  <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723744344/rolonge_oekyrq.png' style={{width:'80%',height:'80%'}} />
+                </Card>
+                <Card variant="outlined"  id='prix-content-product-main'>
+                  <div style={{paddingTop:'9px'}}><h6><FontAwesomeIcon  icon={faTag} style={{marginRight:'5px'}}/>2500FCFA</h6></div>
+                  <div><Button id='content-boutton-and-input-main-btn-product'style={{paddingTop:'10px'}} >Acheter</Button></div>
+                </Card>
+
+              </div>
+              <div>
+                <Card variant="outlined"  className='content-section3-main-one'>
+                  <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723746371/ciment_ul2fko.png' style={{width:'80%',height:'80%'}} />
+                </Card>
+                <Card variant="outlined"  id='prix-content-product-main'>
+                  <div style={{paddingTop:'9px'}}><h6><FontAwesomeIcon  icon={faTag} style={{marginRight:'5px'}}/>2500FCFA</h6></div>
+                  <div><Button id='content-boutton-and-input-main-btn-product'style={{paddingTop:'10px'}} >Acheter</Button></div>
+                </Card>
+
+              </div>
+             
+        
             </div>
-
+      
           </section>
           {/* ************************************ Section3 Fin   ******************************************* */}
 

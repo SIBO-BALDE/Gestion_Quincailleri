@@ -1,0 +1,25 @@
+:root{
+    --principal:#003e1c;
+    --seconde:#fe5300;
+    --troisieme:#fff;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+}
+.btn-content-material-background{
+    background-color: var(--seconde) !important;
+    border: none;
+    color: var(--troisieme);
+}
+.btn-content-material-background:hover{
+    background-color: var(--troisieme) !important;
+    border: none;
+    color: var(--seconde);
+    box-shadow: none !important;
+    border: 3px solid var(--seconde);
+    
+}
