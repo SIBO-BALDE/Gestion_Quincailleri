@@ -22,10 +22,10 @@ import { faBell, faChevronLeft, faClose, faHamburger } from '@fortawesome/free-s
 import React, { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import ListItems from '../../../Components/Admin/ListItems/ListItems';
-import RenderComponent from '../../../Components/Admin/RenderComponent/RenderComponent';
+import RenderComponentVendeur from '../../../Components/Vendeur/RenderComponentVendeur/RenderComponentVendeur';
 import { Image } from 'react-bootstrap';
 import { Button } from '@mui/material';
-
+import SideBarVendeur from '../../../Components/Vendeur/SideBarVendeur/SideBarVendeur';
 
 
 
@@ -98,10 +98,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function DasboardVendeur() {
   const [open, setOpen] = React.useState(true);
-  const [selectedComponent, setSelectedComponent] = React.useState('Dashboard');
-  const [activeLinkComponent, setActiveLinkComponent] = React.useState('Dashboard');
+  const [selectedComponent, setSelectedComponent] = React.useState('DashboardVendeur');
+  const [activeLinkComponent, setActiveLinkComponent] = React.useState('DashboardVendeur');
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -109,7 +109,7 @@ export default function Dashboard() {
 
   // Définir la fonction onSelectComponent
   const onSelectComponent = (component: string) => {
-    setSelectedComponent(component); 
+    setSelectedComponent(component);
     setActiveLinkComponent(component);
   };
 
@@ -175,14 +175,14 @@ export default function Dashboard() {
             <div className='flex justify-center'>
             <Image src='https://res.cloudinary.com/dtquwiu3x/image/upload/v1723494812/temoin_seck_kudpbh.jpg' style={{width:'70px',height:'70px',borderRadius:'50%',  border:'2px solid #fff'}}/>
             </div>
-            <h6 className='text-center mt-3 text-white'>Cheikh Omar</h6>
-            <h6 className='text-center text-white'>Mballo</h6>
+            <h6 className='text-center mt-3 text-white'>Abdoulaye </h6>
+            <h6 className='text-center text-white'>Diao</h6>
 
           </div>
           <Divider className="custom-divider" />
           <List component="nav" >
             {/* Passer la fonction onSelectComponent ici */}
-            <ListItems onSelectComponent={onSelectComponent}  activeLinkComponent={selectedComponent} />
+            <SideBarVendeur onSelectComponent={onSelectComponent} activeLinkComponent={selectedComponent} />
           </List>
           <Divider className="custom-divider" />
           <div className='flex justify-center mt-5'>
@@ -213,7 +213,7 @@ export default function Dashboard() {
         >
           <Toolbar />
           {/* Utiliser selectedComponent pour rendre le bon composant */}
-          <RenderComponent selectedComponent={selectedComponent} />
+          <RenderComponentVendeur selectedComponent={selectedComponent} />
         </Box>
       </Box>
     </ThemeProvider>

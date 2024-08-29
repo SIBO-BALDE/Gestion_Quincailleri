@@ -185,8 +185,8 @@ export default function ContactScreen() {
                                       id='box-content-form'
                                       >
                                       <ThemeProvider theme={customTheme(outerTheme)}>
-                                          <TextField type="tex" label="Prenom" />
-                                          <TextField type="tex" label="Nom" />
+                                          <TextField type="text" label="Prenom" />
+                                          <TextField type="text" label="Nom" />
                                       </ThemeProvider>
                                       
                                       </Box>
@@ -200,7 +200,7 @@ export default function ContactScreen() {
                                       >
                                       <ThemeProvider theme={customTheme(outerTheme)}>
                                           
-                                          <TextField type="tex" label="Telephone" />
+                                          <TextField type="text" label="Telephone" />
                                       </ThemeProvider>
                                       
                                       </Box>
@@ -213,7 +213,7 @@ export default function ContactScreen() {
                                       id='box-content-form'
                                       >
                                       <ThemeProvider theme={customTheme(outerTheme)}>
-                                      <TextField label="Message" variant="standard" />
+                                      <TextField type="text" label="Message" variant="standard" />
                                       </ThemeProvider>
                                       
                                       </Box>

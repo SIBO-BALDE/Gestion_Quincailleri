@@ -3,6 +3,7 @@
     --principal:#003e1c;
     --seconde:#fe5300;
     --troisieme:#fff;
+    --exemple:#74cd9cc7;
 }
 
 *{
@@ -10,6 +11,9 @@
     margin: 0;
     box-sizing: border-box;
     
+}
+.vendeurs-icons:hover{
+    color: var(--seconde);
 }
 
 
