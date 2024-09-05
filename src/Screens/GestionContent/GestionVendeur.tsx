@@ -1,6 +1,6 @@
 import { Box, Button, createTheme, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, outlinedInputClasses, styled, TextField, Theme, ThemeProvider, Typography, useTheme } from '@mui/material'
 import PaginationScreen from '../../Components/Users/Pagination/Pagination'
-import React from 'react'
+import React, { useState } from 'react'
 import { FormControl, Image } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faEnvelope, faGlobe, faLocation, faLocationDot, faMap, faPhone, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -89,20 +89,34 @@ export default function GestionVendeur() {
       const [open, setOpen] = React.useState(false);
       const [openModif, setOpenModif] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleClickOpenModif = () => {
-    setOpenModif(true);
-  };
-  const handleCloseModif = () => {
-    setOpenModif(false);
-  };
+      const handleClickOpen = () => {
+        setOpen(true);
+      };
+      const handleClose = () => {
+        setOpen(false);
+      };
+      const handleClickOpenModif = () => {
+        setOpenModif(true);
+      };
+      const handleCloseModif = () => {
+        setOpenModif(false);
+      };
 
-    const outerTheme = useTheme();
+      const outerTheme = useTheme();
+
+      //*********************** Etat pour initialiser les attribut de la function ajout **************************//
+      const [Users, setUsers]=useState({
+        id: null,
+        nom: "",
+        prenom: "",
+        email: "",
+      })
+
+      //*********************** Function pour ajouter un vendeur **************************//
+      const ajouterVendeur =async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+      }
   
 
 
