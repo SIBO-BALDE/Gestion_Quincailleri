@@ -22,6 +22,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { tokenToString } from 'typescript';
 import { useAuth } from '../AuthContext/AuthContext'
+import 'react-toastify/dist/ReactToastify.css';
 
 function Copyright(props: any) {
   return (
@@ -47,7 +48,7 @@ export default function Login() {
   const navigate =useNavigate()
 
  
-
+ //*********************** Function pour login  **************************//
   const Signin = async (e: React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault()
     // alert('non')
@@ -55,9 +56,17 @@ export default function Login() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
    
       if (email ==='' || password ==='') {
-        // <NotificationFailed message='Les champs ne peuvent pas être vides'/>
-        // toast.error('Les champs ne peuvent pas être vides');
-        alert(' champs vides')
+        toast.error('Les champs ne peuvent pas être vides', {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+        
+        // alert(' champs vides')
 
         return
         
@@ -65,13 +74,32 @@ export default function Login() {
       
       if (!emailPattern.test(email)) {
         // <NotificationFailed message=" Le format de l'email n'est pas valide"/>
-        alert(' email invalid')
+        toast.error(" Le format de l'email n'est pas valide", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+        
         return
         
       }
       if (password.length < 8) {
         // <NotificationFailed message=" Le mot de passe doit comporter au moins 8 caractères!"/>
-        alert(' pass invalid')
+        toast.error("Le mot de passe doit comporter au moins 8 caractères!", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+        
+        
         return
         
       }
@@ -87,7 +115,7 @@ export default function Login() {
            if (response.status === 200) {
             const data = response.data;
             console.log('data', data)
-            alert(' okay')
+            
             const tokenAuth= data.token
             const roleAuth= data.roles[0]
             // console.log(tokenAuth, 'token')
@@ -106,6 +134,15 @@ export default function Login() {
           }
       
     } catch (error) {
+      toast.error("Ce compte n'existe pas", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
       
     }
 
@@ -123,26 +160,26 @@ export default function Login() {
   // };
 
   return (
-    <div className='login-main-content flex justify-center '>
-        <Card variant="outlined" style={{boxShadow:'rgba(0, 0, 0, 0.24) 0px 3px 8px'}} className='pb-5 mt-10'>
-            <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-                >
-                <Avatar sx={{ m: 1, bgcolor: '#fe5300' }}>
+    <div className='login-main-content flex justify-center ' id='bg-login-main'>
+      <Card variant="outlined" style={{boxShadow:'rgba(0, 0, 0, 0.24) 0px 3px 8px'}} className='pb-5 mt-10'id='bg-login-login-card'>
+        <ThemeProvider theme={defaultTheme}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+              sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <Avatar sx={{ m: 1, bgcolor: '#fe5300' }}>
                 <Link href='/' className='text-white'><FontAwesomeIcon icon={faLock}/></Link>
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Connexion
-                </Typography>
-                <Box component="form" noValidate onSubmit={Signin} sx={{ mt: 3 }}>
+              </Avatar>
+              <Typography component="h1" variant="h5" style={{ color: 'white' }}>
+                Connexion
+              </Typography>
+              <Box component="form" noValidate onSubmit={Signin} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
@@ -154,6 +191,28 @@ export default function Login() {
                       autoComplete="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      InputProps={{
+                        style: {
+                          color: 'white', // Texte dans l'input
+                          borderColor: 'white', // Bordure
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: { color: 'white' }, // Couleur du label
+                      }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          '& fieldset': {
+                            borderColor: 'white', // Couleur de la bordure
+                          },
+                          '&:hover fieldset': {
+                            borderColor: 'white', // Bordure au hover
+                          },
+                          '&.Mui-focused fieldset': {
+                            borderColor: 'white', // Bordure lors du focus
+                          },
+                        },
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -167,16 +226,41 @@ export default function Login() {
                       autoComplete="new-password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      InputProps={{
+                        style: {
+                          color: 'white',
+                          borderColor: 'white',
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: { color: 'white' },
+                      }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          '& fieldset': {
+                            borderColor: 'white',
+                          },
+                          '&:hover fieldset': {
+                            borderColor: 'white',
+                          },
+                          '&.Mui-focused fieldset': {
+                            borderColor: 'white',
+                          },
+                        },
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
                     <FormControlLabel
-                      control={<Checkbox value="allowExtraEmails" color="primary" />}
-                      label="Je souhaite recevoir des inspirations, promotions marketing et mises à jour par e-mail."
+                      control={<Checkbox value="allowExtraEmails" sx={{ color: 'white' }} />}
+                      label={
+                        <span style={{ color: 'white' }}>
+                          Je souhaite recevoir des inspirations, promotions marketing et mises à jour par e-mail.
+                        </span>
+                      }
                     />
                   </Grid>
                 </Grid>
-                {/* Bouton de soumission du formulaire */}
                 <Button
                   type="submit"  // Le type doit être "submit" pour les formulaires
                   fullWidth
@@ -188,18 +272,27 @@ export default function Login() {
                 </Button>
                 <Grid container justifyContent="flex-end">
                   <Grid item>
-                    <Link href="#" variant="body2" style={{color:'#003e1c', textDecoration:'none'}}>
+                    <Link href="#" variant="body2" style={{ color: 'white', textDecoration: 'none' }}>
                       Mot de passe oublié? Réinitialiser
                     </Link>
                   </Grid>
                 </Grid>
               </Box>
             </Box>
-                <Copyright sx={{ mt: 5 }} />
-            </Container>
-            </ThemeProvider>
+            <Typography variant="body2" color="text.secondary" align="center" style={{ color: 'white', marginTop: '10px' }}>
+              {'Copyright © '}
+              <Link color="inherit" href="/" style={{ color: 'white' }}>
+                ar-rahmane
+              </Link>{' '}
+              {new Date().getFullYear()}
+              {'.'}
+            </Typography>
+          </Container>
+        </ThemeProvider>
+        <ToastContainer />
+      </Card>
 
-        </Card>
+
     </div>
   );
 }

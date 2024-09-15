@@ -10,6 +10,30 @@
     box-sizing: border-box;
     
 }
+#bg-login-main{
+    background-image: url('../../../images//bg.jpg');
+    height: 100vh;
+    animation: animateBg 5s linear infinite;
+    -webkit-animation: animateBg 5s linear infinite;
+}
+@keyframes animateBg{
+    100% {
+        filter: blur();
+        -webkit-filter: hue-rotate(360deg);
+}
+
+}
+#bg-login-login-card{
+    height: 600px;
+    background-color: transparent;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border: 1px solid #fff;
+    backdrop-filter: blur(15px);
+}
 .btn-content-material-background{
     background-color: var(--seconde) !important;
     border: none;
@@ -22,4 +46,19 @@
     box-shadow: none !important;
     border: 3px solid var(--seconde);
     
+}
+@media screen  and (max-width:472px){
+    #bg-login-login-card{
+        height: 600px;
+        background-color: transparent;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        border: none !important;
+        backdrop-filter: blur(15px);
+    }
+    
+       
 }

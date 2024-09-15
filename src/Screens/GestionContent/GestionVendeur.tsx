@@ -1,11 +1,15 @@
 import { Box, Button, createTheme, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, outlinedInputClasses, styled, TextField, Theme, ThemeProvider, Typography, useTheme } from '@mui/material'
 import PaginationScreen from '../../Components/Users/Pagination/Pagination'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { FormControl, Image } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faEnvelope, faGlobe, faLocation, faLocationDot, faMap, faPhone, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import CloseIcon from '@mui/icons-material/Close';
 import { color } from 'framer-motion'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios'
+import { useAuth } from '../Auth/AuthContext/AuthContext';
 
 
 const customTheme = (outerTheme: Theme) =>
@@ -75,6 +79,8 @@ const customTheme = (outerTheme: Theme) =>
     });
 
 export default function GestionVendeur() {
+  const { token, role } = useAuth();
+  const [users, setUsers] =useState<UserData[]>([]);
 
 
     const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -105,19 +111,174 @@ export default function GestionVendeur() {
       const outerTheme = useTheme();
 
       //*********************** Etat pour initialiser les attribut de la function ajout **************************//
-      const [Users, setUsers]=useState({
-        id: null,
-        nom: "",
-        prenom: "",
-        email: "",
-      })
-
+      interface UserData {
+        prenom: string;
+        nom: string;
+        email: string;
+        password: string;
+        telephone: string;
+        addresse: string;
+        img?: File; 
+      }
+      
+      const [userData, setUserData] = useState<UserData>({
+        prenom: '',
+        nom: '',
+        email: '',
+        password: '',
+        telephone: '',
+        addresse: '',
+        img: undefined,
+      });
+      
+      //*********************** file images **************************//
+      const [newFile, setNewFile] = useState("");
+      const handleFileChange = (file: React.SetStateAction<string>) => {
+        setNewFile(file);
+      };
+      
       //*********************** Function pour ajouter un vendeur **************************//
       const ajouterVendeur =async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if(!userData.prenom || !userData.nom || !userData.email || !userData.password  || !userData.telephone || !userData.addresse || !userData.img){
+          toast.error('Les champs ne peuvent pas être vides', {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light",
+          });
+          return
+        }
+        if (!emailPattern.test(userData.email)) {
+          // <NotificationFailed message=" Le format de l'email n'est pas valide"/>
+          toast.error(" Le format de l'email n'est pas valide", {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light",
+          });
+          
+          return
+          
+        }
+        if (userData.password.length < 8) {
+          // <NotificationFailed message=" Le mot de passe doit comporter au moins 8 caractères!"/>
+          toast.error("Le mot de passe doit comporter au moins 8 caractères!", {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light",
+          });
+          
+          
+          return
+          
+        }
+        try {
+          const formData = new FormData();
+           formData.append("prenom", userData.prenom);
+           formData.append("nom", userData.nom);
+           formData.append("email", userData.email);
+           formData.append("password", userData.password);
+           formData.append("addresse", userData.addresse);
+           formData.append("telephone", userData.telephone);
+           if (userData.img) {
+            formData.append("img", userData.img);
+          }
+          if (token || role==="Admin"){
+            const response = await axios.post(
+              "http://localhost:8000/api/creation/vendeur",
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+            if (response.data.status === 422) {
+              console.log(response.data.errors,'resp')
+              return
+              // toast.error(" Le format de l'email n'est pas valide", {
+              //   position: "bottom-center",
+              //   autoClose: 5000,
+              //   hideProgressBar: false,
+              //   closeOnClick: true,
+              //   pauseOnHover: true,
+              //   draggable: true,
+              //   theme: "light",
+              // });
+            }
+            if (response.status === 200) {
+              console.log(response,'resp')
+              setUsers([...users, response.data]);
+              setUserData({
+                prenom: '',
+                nom: '',
+                email: '',
+                password: '',
+                telephone: '',
+                addresse: '',
+                img: undefined,
+              });
+              toast.success(" Vendeur ajouter avec succées", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "light",
+              })
+    
+            } else {
+              console.error("Erreur dans l'ajout de la maison");
+            }
+          }
+          
+    
+          
+        } catch (error) {
+           console.log(error)
+          
+        }
+
 
       }
+      
+      // const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      //   const { name, value, type, files } = e.target;
+      //   if (type === 'file' && files) {
+      //     setUserData((prev) => ({
+      //       ...prev,
+      //       [name]: files[0]
+      //     }));
+      //   } else {
+      //     setUserData((prev) => ({
+      //       ...prev,
+      //       [name]: value
+      //     }));
+      //   }
+      // }, []);
   
+      const handleChange = (e:any) => {
+        const { name, value, type, files } = e.target;
+        setUserData(prev => ({
+          ...prev,
+          [name]: type === 'file' ? files[0] : value
+        }));
+      };
 
 
 
@@ -526,88 +687,34 @@ export default function GestionVendeur() {
         </div>
            {/* ************************************ Modal ajout debut   ******************************************* */}
         <div>
-            <BootstrapDialog
-                onClose={handleClose}
-                aria-labelledby="customized-dialog-title"
-                open={open}
-            >
-                <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                Ajouter un Vendeur
-                </DialogTitle>
-                <IconButton
-                aria-label="close"
-                onClick={handleClose}
-                sx={{
-                    position: 'absolute',
-                    right: 8,
-                    top: 8,
-                    color: (theme) => theme.palette.grey[500],
-                }}
-                >
-                <CloseIcon />
-                </IconButton>
-                <DialogContent dividers>
-                    <div className='flex-content-ban-product' >
-                        <Box
-                                                sx={{
-                                                    display: 'grid',
-                                                    gridTemplateColumns: { sm: '1fr 1fr ' },
-                                                    gap: 2,
-                                                }}
-                                                id='box-content-form'
-                                                >
-                                                <ThemeProvider theme={customTheme(outerTheme)}>
-                                                    <TextField type="text" label="Prenom" />
-                                                    <TextField type="text" label="Nom" />
-                                                </ThemeProvider>
-                                                
-                        </Box>
-                        <Box
-                                                sx={{
-                                                    display: 'grid',
-                                                    gridTemplateColumns: { sm: '1fr 1fr ' },
-                                                    gap: 2,
-                                                }}
-                                                id='box-content-form'
-                                                >
-                                                <ThemeProvider theme={customTheme(outerTheme)}>
-                                                <TextField type="email" label="Email" />
-                                                    <TextField type="password" label="Password" />
-                                                </ThemeProvider>
-                                                
-                        </Box>
-                        <Box
-                                                sx={{
-                                                    display: 'grid',
-                                                    gridTemplateColumns: { sm: '1fr 1fr ' },
-                                                    gap: 2,
-                                                }}
-                                                id='box-content-form'
-                                                >
-                                                <ThemeProvider theme={customTheme(outerTheme)}>
-                                                    <TextField type="text" label="Telephone" />
-                                                    <TextField type="text" label="Adresse" />
-                                                </ThemeProvider>
-                                                
-                        </Box>
-                                                
-                                                
-                                            
-                                            
-                                            
-                                            
-                    </div>
-                
-                </DialogContent>
-                <DialogActions>
-                <Button autoFocus onClick={handleClose} id="form-btn-box">
-                    Enregistrer
-                </Button>
-                <Button autoFocus onClick={handleClose} style={{border:'2px solid #fe5300', backgroundColor:'#fff', color:'#fe5300'}}>
-                    Annuler
-                </Button>
-                </DialogActions>
-            </BootstrapDialog>
+        <Dialog onClose={handleClose} open={open}>
+          <DialogTitle>
+            Ajouter un Vendeur
+            <IconButton aria-label="close" onClick={handleClose} sx={{ position: 'absolute', right: 8, top: 8 }}>
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent dividers>
+            <form onSubmit={ajouterVendeur}>
+              <Box sx={{ display: 'grid', gridTemplateColumns: { sm: '1fr 1fr' }, gap: 2 }}>
+                <TextField name="prenom" type="text" label="Prenom" value={userData.prenom} onChange={handleChange} />
+                <TextField name="nom" type="text" label="Nom" value={userData.nom} onChange={handleChange} />
+                <TextField name="email" type="email" label="Email" value={userData.email} onChange={handleChange} />
+                <TextField name="password" type="password" label="Password" value={userData.password} onChange={handleChange} />
+                <TextField name="telephone" type="text" label="Telephone" value={userData.telephone} onChange={handleChange} />
+                <TextField name="addresse" type="text" label="Adresse" value={userData.addresse} onChange={handleChange} />
+              </Box>
+              <Box sx={{ display: 'grid', gridTemplateColumns: { sm: '1fr ' }, gap: 2 ,marginTop: 2 ,marginBottom: 2}}>
+                <TextField name="img" type="file" label="Profile" onChange={handleChange} />
+              </Box>
+              <DialogActions>
+                <Button type="submit" id="form-btn-box">Enregistrer</Button>
+                <Button type="button" onClick={handleClose} style={{ border: '2px solid #fe5300', backgroundColor: '#fff', color: '#fe5300' }}>Annuler</Button>
+              </DialogActions>
+            </form>
+          </DialogContent>
+        </Dialog>
+        <ToastContainer />
         </div>
         {/* ************************************ Modal ajout debut   ******************************************* */}
 
