@@ -5,7 +5,7 @@
 
 :root{
     --principal:#003e1c;
-    --seconde:#fe5300;
+    --seconde:#ffb536;
     --troisieme:#fff;
 }
 
@@ -122,7 +122,7 @@
   }
   
   .second_menu ul li a:hover {
-    color: #D46F4D;
+    color: var(--seconde);
   }
   
   .Footer_Container {
@@ -133,13 +133,13 @@
   }
   
   .second_menu ul li:not(:last-child):hover {
-    color: #D46F4D;
+    color: var(--seconde);
     cursor: pointer;
   }
   .icons-content{
     border-radius: 50%;
     background-color: white;
-    color: #D46F4D;
+    color: var(--seconde);
     width: 20px;
     height: 20px;
   }

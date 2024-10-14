@@ -189,7 +189,7 @@ export default function GestionProduct() {
 
     </div>
     <div className='flex justify-end mt-5'>
-     <PaginationScreen/>
+     {/* <PaginationScreen/> */}
     </div>
        {/* ************************************ Modal ajout debut   ******************************************* */}
     <div>

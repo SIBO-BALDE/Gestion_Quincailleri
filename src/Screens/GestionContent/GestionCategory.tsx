@@ -1,10 +1,14 @@
 
 import { Box, Button, createTheme, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, outlinedInputClasses, Paper, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Theme, ThemeProvider, Typography, useTheme } from '@mui/material'
 import PaginationScreen from '../../Components/Users/Pagination/Pagination'
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faEnvelope, faGlobe, faLocation, faLocationDot, faMap, faPhone, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import CloseIcon from '@mui/icons-material/Close';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios'
+import { useAuth } from '../Auth/AuthContext/AuthContext';
 
 
 const customTheme = (outerTheme: Theme) =>
@@ -74,6 +78,7 @@ const customTheme = (outerTheme: Theme) =>
     });
 
 export default function GestionCategory() {
+  const { token, role } = useAuth();
 
 
     const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -118,6 +123,82 @@ export default function GestionCategory() {
       createData('Mençonnerie',' 24/11/2024'),
       
     ];
+    interface CategoryData {
+      id: number | null | undefined
+      nom: string;
+    }
+    const [categories, setCategories] =useState<CategoryData[]>([]);
+    const [categoriData, setCategoriData]= useState <CategoryData>({
+      id: null,
+      nom: ''
+
+    })
+     //***************************** Function pour ajouter une categorie  *************************//
+      const ajouterCategory = async (e: React.FormEvent<HTMLFormElement>)=> {
+        e.preventDefault()
+        console.log(e,'evenement ')
+        if (categoriData.nom === '') {
+          toast.error(" La catégorie ne peut pas etre vide", {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light",
+          })
+          return
+          
+        }
+        try {
+          if (token || role==="Admin"){
+          const response = await axios.post(
+              "http://localhost:8000/api/ajout/categorie",
+              categoriData,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            )
+             // Vérifiez si la requête a réussi
+        if (response.status === 200) {
+          // Ajoutez la nouvelle catégorie à la liste existante
+          setCategories([...categories, response.data]);
+          // Réinitialisez les valeurs du formulaire après avoir ajouté la catégorie
+          setCategoriData({
+            id:null,
+            nom: ""
+           
+          });
+          toast.success(" Catégorie ajouté avec succée", {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light",
+          })
+         
+        } else {
+          console.error("Erreur dans lajout de maison");
+        }
+          }
+
+          
+        } catch (error) {
+          
+        }
+
+      }
+      const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // Mettre à jour l'état en fonction de l'input
+        setCategoriData({ ...categoriData, nom: event.target.value });
+      };
+      
+      
+    
     
   
 
@@ -169,7 +250,7 @@ export default function GestionCategory() {
 
     </div>
     <div className='flex justify-end mt-5'>
-     <PaginationScreen/>
+     {/* <PaginationScreen/> */}
     </div>
        {/* ************************************ Modal ajout debut   ******************************************* */}
     <div>
@@ -177,6 +258,12 @@ export default function GestionCategory() {
             onClose={handleClose}
             aria-labelledby="customized-dialog-title"
             open={open}
+            PaperProps={{
+              sx: {
+                width: '30%', 
+                maxWidth: 'none', 
+              },
+            }}
         >
             <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
             Ajouter une catégorie
@@ -195,56 +282,37 @@ export default function GestionCategory() {
             <CloseIcon />
             </IconButton>
             <DialogContent dividers>
-                <div className='flex-content-ban-product' >
-              
-                                      <Box
-                                      sx={{
-                                          display: 'grid',
-                                          gridTemplateColumns: { sm: '1fr 1fr' },
-                                          gap: 2,
-                                      }}
-                                      id='box-content-form'
-                                      >
-                                      <ThemeProvider theme={customTheme(outerTheme)}>
-                                          
-                                          <TextField type="text" label="Titre" />
-                                          <TextField type="text" label="Titre" />
-                                          
-                                      </ThemeProvider>
-                                      
-                                      </Box>
-                                      <Box
-                                      sx={{
-                                          display: 'grid',
-                                          gridTemplateColumns: { sm: '1fr' },
-                                          gap: 2,
-                                      }}
-                                      id='box-content-form'
-                                      >
-                                      <ThemeProvider theme={customTheme(outerTheme)}>
-                                      <TextField type="text" label="Message" variant="standard" />
-                                      </ThemeProvider>
-                                      
-                                      </Box>
-                   
-                                            
-                                            
-                                        
-                                        
-                                        
-                                        
-                </div>
+              <form action="" onSubmit={ajouterCategory}>
+                <Box
+                  sx={{
+                    display: 'grid',
+                    gridTemplateColumns: { sm: '1fr ' },
+                    gap: 2,
+                }}
+                id='box-content-form'
+                >
+                <ThemeProvider theme={customTheme(outerTheme)}>
+                    <TextField type="text" label="Titre"
+                      value={categoriData.nom}
+                      onChange={handleChange}
+                    
+                    />
+                </ThemeProvider>                                 
+                </Box> 
+                <DialogActions>
+                  <Button type="submit"  id="form-btn-box">
+                      Enregistrer
+                  </Button>
+                  <Button type='button'  onClick={handleClose} style={{border:'2px solid #fe5300', backgroundColor:'#fff', color:'#fe5300'}}>
+                      Annuler
+                  </Button>
+                </DialogActions>                  
+              </form>
             
             </DialogContent>
-            <DialogActions>
-            <Button autoFocus onClick={handleClose} id="form-btn-box">
-                Enregistrer
-            </Button>
-            <Button autoFocus onClick={handleClose} style={{border:'2px solid #fe5300', backgroundColor:'#fff', color:'#fe5300'}}>
-                Annuler
-            </Button>
-            </DialogActions>
+           
         </BootstrapDialog>
+        <ToastContainer />
     </div>
     {/* ************************************ Modal ajout debut   ******************************************* */}
 

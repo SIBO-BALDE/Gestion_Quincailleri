@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import '~react-phone-input-2/lib/style.css';
+
 
 @layer base {
   :root {
@@ -67,3 +69,61 @@
     @apply bg-background text-foreground;
   }
 }
+/* Cibler tous les TextField avec la classe racine de Material-UI */
+.MuiOutlinedInput-root {
+  /* Couleur par défaut de la bordure */
+  fieldset {
+    border-color: #ccc;
+  }
+
+  /* Couleur au survol */
+  &:hover fieldset {
+    border-color: #fe5300;
+  }
+
+  /* Couleur quand l'input est en focus */
+  &.Mui-focused fieldset {
+    border-color: #fe5300 !important;
+  }
+
+  .MuiInputLabel-root {
+    color: #999; 
+  }
+  
+  /* Pour changer la couleur du label au focus */
+  .MuiInputLabel-root.Mui-focused {
+    color: #fe5300 !important;
+}
+}
+
+/* Pour le champ TextField */
+.MuiOutlinedInput-root {
+  /* Couleur de la bordure */
+  fieldset {
+    border-color: #ccc;
+  }
+
+  /* Couleur de la bordure lorsqu'on survole */
+  &:hover fieldset {
+    border-color: #fe5300;
+  }
+
+  /* Couleur de la bordure lorsque le TextField est en focus */
+  &.Mui-focused fieldset {
+    border-color: #fe5300 !important;
+  }
+}
+
+/* Pour changer la couleur du label par défaut */
+.MuiInputLabel-root {
+  color: #fe5300; 
+}
+
+/* Pour changer la couleur du label au focus */
+.MuiInputLabel-root.Mui-focused {
+  color: #fe5300 !important; 
+}
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #fe5300 !important; 
+}
+

@@ -79,7 +79,7 @@ export default function Batiment() {
         </div>
       </div>
       <div style={{display:'flex',justifyContent:'flex-end', marginTop:'30px'}}>
-        <PaginationScreen/>
+        {/* <PaginationScreen/> */}
       </div>
     </div>
   )
