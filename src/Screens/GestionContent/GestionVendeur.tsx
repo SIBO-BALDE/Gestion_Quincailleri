@@ -87,7 +87,7 @@ export default function GestionVendeur () {
   const [usersBloque, setUsersBloque] =useState<UserData[]>([]);
   const [usersPerPage] = useState(5);  
   const [page, setPage] = useState(1);
-  const itemsPerPage = 3; 
+  const itemsPerPage = 10; 
   
   const [searchValue, setSearchValue] = useState('');
   const [searchValueBlock, setSearchValueBlock] = useState('');
