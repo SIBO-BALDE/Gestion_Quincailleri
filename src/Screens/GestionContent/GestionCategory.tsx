@@ -90,8 +90,26 @@ export default function GestionCategory() {
         },
       }));
 
+      interface CategoryData {
+        id: number | null | undefined
+        nom: string;
+        created_at: string;
+      }
+      interface CategoryEditData {
+        id: number | null | undefined
+        nom: string;
+       
+      }
+
       const [open, setOpen] = React.useState(false);
       const [openModif, setOpenModif] = React.useState(false);
+      const [categoriData, setCategoriData]= useState <CategoryData>({
+        id: null,
+        nom: '',
+        created_at:''
+  
+      })
+     
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -99,8 +117,27 @@ export default function GestionCategory() {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleClickOpenModif = () => {
-    setOpenModif(true);
+
+  const [categoriEditData, setCategoriEditData]= useState <CategoryEditData>({
+    id: null,
+    nom: '',
+   
+
+  })
+  const handleClickOpenModif = (cat:CategoryEditData) => {
+
+    if (cat && cat.nom) {
+      setCategoriEditData({
+      id: cat.id || 0,
+      nom: cat.nom || '',
+      
+      });
+      setOpenModif(true);
+    } else {
+      console.error("info categori modif ");
+     
+    }
+    
   };
   const handleCloseModif = () => {
     setOpenModif(false);
@@ -123,27 +160,27 @@ export default function GestionCategory() {
       createData('Mençonnerie',' 24/11/2024'),
       
     ];
-    interface CategoryData {
-      id: number | null | undefined
-      nom: string;
-      created_at: string;
-    }
+   
     const [categories, setCategories] =useState<CategoryData[]>([]);
     const [searchValue, setSearchValue] = useState('');
     const [page, setPage] = useState(1);
-    const itemsPerPage = 3; 
-    const [categoriData, setCategoriData]= useState <CategoryData>({
-      id: null,
-      nom: '',
-      created_at:''
-
-    })
+    const itemsPerPage = 8; 
+   
      //***************************** Function pour ajouter une categorie  *************************//
      const ajouterCategory = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault(); // Empêche le rechargement du formulaire
-      console.log(e, 'evenement');
+      e.preventDefault(); 
+      // console.log(e, 'evenement');
       if (categoriData.nom === '') {
-          toast.error("La catégorie ne peut pas être vide", { /* options */ });
+          toast.error("La catégorie ne peut pas être vide"
+            , {
+              position: "bottom-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              theme: "light",
+            });
           return;
       }
       try {
@@ -151,12 +188,26 @@ export default function GestionCategory() {
               const response = await axios.post(
                   "http://localhost:8000/api/ajout/categorie",
                   categoriData,
-                  { headers: { Authorization: `Bearer ${token}` } }
+                  { 
+                    headers: 
+                    { 
+                      Authorization: `Bearer ${token}` 
+                    } 
+                  }
               );
               if (response.status === 200) {
                   setCategories([...categories, response.data]);
                   setCategoriData({ id: null, nom: "", created_at:'' });
-                  toast.success("Catégorie ajoutée avec succès", { /* options */ });
+                  toast.success("Catégorie ajoutée avec succès"
+                    , {
+                      position: "bottom-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      theme: "light",
+                    });
                   fetchCategory();
                   handleClose();
               } else {
@@ -235,6 +286,96 @@ export default function GestionCategory() {
       const indexOfFirstUser = indexOfLastUser - itemsPerPage;
       const currentCategorys = displayUsers.slice(indexOfFirstUser, indexOfLastUser); 
       const totalPages = Math.ceil(displayUsers.length / itemsPerPage);
+
+      // Function pour supprimer les categorie
+      const supprimerCategory = async (id: number | null) => {
+        try {
+          if (token && role === "Admin") {
+            const response = await axios.post(
+              `http://localhost:8000/api/destroy/categorie/${id}`,
+              {}, 
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+      
+            if (response.status === 200) {
+              setCategories(categories.filter((categorie) => categorie.id !== id));
+              toast.success("Catégorie supprimée avec succès", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "light",
+              });
+            } else {
+              console.error("Erreur lors de la suppression de la catégorie");
+            }
+          } else {
+            console.error("Token ou rôle invalide");
+          }
+        } catch (error: any) {
+          console.error("Erreur lors de la suppression de la catégorie :", error);
+          toast.error("Une erreur est survenue lors de la suppression", {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light",
+          });
+        }
+      };
+      
+
+
+    // Function pour modifier les categorie
+        const modifierCategory = async (e: React.FormEvent<HTMLFormElement>, id: number) => {
+          e.preventDefault();
+          try {
+            if (token || role === "Admin") {
+              const response = await axios.post(
+                `http://localhost:8000/api/update/categorie/${id}`,
+                categoriEditData,
+                {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+        
+              if (response.data.status === 422) {
+                console.error("Validation échouée :", response.data.errors);
+                return;
+              }
+        
+              if (response.status === 200) {
+                toast.success("Categori mis à jour avec succès !",
+                  {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "light",
+                  });
+                fetchCategory();
+                handleCloseModif(); 
+              }
+            }
+          } catch (error) {
+            console.error("Erreur lors de la mise à jour :", error);
+          }
+        }
+    
        
       
       
@@ -281,8 +422,8 @@ export default function GestionCategory() {
                 </TableCell>
                 <TableCell align="right">{formatDate(category.created_at)}</TableCell>
                 <TableCell align="right">
-                  <Button onClick={handleClickOpenModif}><FontAwesomeIcon icon={faEdit} style={{color:'#003e1c', fontSize:'20px'}}/></Button>
-                  <Button><FontAwesomeIcon icon={faTrash} style={{color:'#003e1c', fontSize:'20px'}} /></Button>
+                  <Button  onClick={() => handleClickOpenModif(category)} ><FontAwesomeIcon icon={faEdit} style={{color:'#003e1c', fontSize:'20px'}}/></Button>
+                  <Button onClick={() => category.id && supprimerCategory(category.id)}><FontAwesomeIcon icon={faTrash} style={{color:'#003e1c', fontSize:'20px'}} /></Button>
                 </TableCell>
                 
               </TableRow>
@@ -311,8 +452,8 @@ export default function GestionCategory() {
           </DialogTitle>
           <DialogContent dividers>
             <form onSubmit={ajouterCategory}>
-              <Box sx={{ display: 'grid', gridTemplateColumns: { sm: '1fr 1fr' }, gap: 2 }}>
-                <TextField name="categorie" type="text" label="Categorie" value={categoriData.nom} onChange={handleChange} />
+              <Box sx={{ display: 'grid', gridTemplateColumns: { sm: '1fr'}}}>
+                <TextField sx={{width:'500px'}} name="categorie" type="text" label="Categorie" value={categoriData.nom} onChange={handleChange} />
       
               </Box>
              
@@ -330,7 +471,7 @@ export default function GestionCategory() {
 
     {/* ************************************ Modal modifier debut   ******************************************* */}
     <div>
-        <BootstrapDialog
+        <Dialog
             onClose={handleCloseModif}
             aria-labelledby="customized-dialog-title"
             open={openModif}
@@ -351,56 +492,55 @@ export default function GestionCategory() {
             <CloseIcon />
             </IconButton>
             <DialogContent dividers>
+            <form onSubmit={(e) => {
+                if (categoriEditData.id) {
+                  modifierCategory(e, categoriEditData.id);
+                } else {
+                  console.error("L'ID est manquant pour la catégorie.");
+                }
+              }}>
             <div className='flex-content-ban-product' >
               
               <Box
               sx={{
-                  display: 'grid',
-                  gridTemplateColumns: { sm: '1fr 1fr' },
-                  gap: 2,
+                  display: 'flex',
+                  gridTemplateColumns: { sm: '1fr ' },
+                  // gap: 2,
               }}
               id='box-content-form'
               >
               <ThemeProvider theme={customTheme(outerTheme)}>
                   
-                  <TextField type="text" label="Titre" />
-                  <TextField type="text" label="Titre" />
+                  <TextField type="text" label="Titre"
+                  sx={{width:'500px'}}
+                   value={categoriEditData.nom || ""}
+                   onChange={(e) => {
+                     setCategoriEditData({
+                       ...categoriEditData,
+                       nom: e.target.value,
+                     });
+                   
+                   }}
+                   />
+                  {/* <TextField type="text" label="Titre" /> */}
                   
               </ThemeProvider>
               
               </Box>
-              <Box
-              sx={{
-                  display: 'grid',
-                  gridTemplateColumns: { sm: '1fr' },
-                  gap: 2,
-              }}
-              id='box-content-form'
-              >
-              <ThemeProvider theme={customTheme(outerTheme)}>
-              <TextField type="text" label="Message" variant="standard" />
-              </ThemeProvider>
-              
-              </Box>
-
-                    
-                    
-                
-                
-                
-                
-</div>
-            
-            </DialogContent>
+                         
+            </div> 
             <DialogActions>
-            <Button autoFocus onClick={handleCloseModif} id="form-btn-box">
+            <Button type='submit' id="form-btn-box">
                 Modifier
             </Button>
-            <Button autoFocus onClick={handleCloseModif} style={{border:'2px solid #fe5300', backgroundColor:'#fff', color:'#fe5300'}}>
+            <Button type='button' onClick={handleCloseModif} style={{border:'2px solid #fe5300', backgroundColor:'#fff', color:'#fe5300'}}>
                 Annuler
             </Button>
             </DialogActions>
-        </BootstrapDialog>
+            </form>    
+            </DialogContent>
+           
+        </Dialog>
     </div>
     {/* ************************************ Modal modifier debut   ******************************************* */}
 

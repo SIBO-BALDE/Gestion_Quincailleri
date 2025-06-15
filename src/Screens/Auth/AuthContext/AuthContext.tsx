@@ -24,12 +24,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [token, setToken] = useState<string | null>(localStorage.getItem('tokencle'));
   const [role, setRole] = useState<string | null>(localStorage.getItem('rolecle'));
 
-  // Fonction pour mettre à jour le token et le rôle dans le localStorage
+  // Fonction pour mettre à jour le token  dans le localStorage
   const updateToken = (newToken: string | null) => {
     setToken(newToken);
     localStorage.setItem('tokencle', newToken || '');
   };
-
+// Fonction pour mettre à jour  le rôle dans le localStorage
   const updateRole = (newRole: string | null) => {
     setRole(newRole);
     localStorage.setItem('rolecle', newRole || '');

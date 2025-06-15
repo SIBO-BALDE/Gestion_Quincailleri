@@ -151,15 +151,16 @@ export default function GestionDette() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead style={{backgroundColor:'#fe5300',color:'#fff'}}>
             <TableRow>
-              <TableCell className='text-white'>Etat</TableCell>
+              
               <TableCell className='text-white'>Image</TableCell>
-              <TableCell align="right" className='text-white'>Titre</TableCell>
-              <TableCell align="right" className='text-white'>Quantité</TableCell>
-              <TableCell align="right" className='text-white'>Catégorie</TableCell>
-              <TableCell align="right" className='text-white'>Prix</TableCell>
-              <TableCell align="right" className='text-white'>Date</TableCell>
-              <TableCell align="right" className='text-white'>Vendeur</TableCell>
-              <TableCell align="right" className='text-white'>Action</TableCell>
+              <TableCell  className='text-white'>Titre</TableCell>
+              <TableCell  className='text-white'>Quantité</TableCell>
+              <TableCell  className='text-white'>Catégorie</TableCell>
+              <TableCell  className='text-white'>Prix</TableCell>
+              <TableCell  className='text-white'>Date</TableCell>
+              <TableCell  className='text-white'>Vendeur</TableCell>
+              <TableCell className='text-white'>Etat</TableCell>
+              <TableCell align="center" className='text-white'>Action</TableCell>
               
             </TableRow>
           </TableHead>
@@ -169,17 +170,18 @@ export default function GestionDette() {
                 key={row.titre}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell align="right">{row.etat}</TableCell>
+               
                 <TableCell component="th" scope="row">
                   {row.image}
                 </TableCell>
                 
-                <TableCell align="right">{row.titre}</TableCell>
-                <TableCell align="right">{row.quantite}</TableCell>
-                <TableCell align="right">{row.category}</TableCell>
-                <TableCell align="right">{row.prix}</TableCell>
-                <TableCell align="right">{row.date}</TableCell>
-                <TableCell align="right">{row.vendeur}</TableCell>
+                <TableCell >{row.titre}</TableCell>
+                <TableCell >{row.quantite}</TableCell>
+                <TableCell >{row.category}</TableCell>
+                <TableCell >{row.prix}</TableCell>
+                <TableCell >{row.date}</TableCell>
+                <TableCell >{row.vendeur}</TableCell>
+                <TableCell >{row.etat}</TableCell>
                 <TableCell align="right">
                   <Button onClick={handleClickOpenModif}><FontAwesomeIcon icon={faEdit} style={{color:'#003e1c', fontSize:'20px'}}/></Button>
                   <Button><FontAwesomeIcon icon={faTrash} style={{color:'#003e1c', fontSize:'20px'}} /></Button>

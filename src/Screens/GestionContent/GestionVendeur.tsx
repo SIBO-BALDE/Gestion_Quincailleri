@@ -13,7 +13,27 @@ import { useAuth } from '../Auth/AuthContext/AuthContext';
 import 'react-phone-input-2/lib/style.css';
 import PhoneInput from 'react-phone-input-2'
 
-
+ interface UserDataModif {
+        id: number | null | undefined
+        prenom: string;
+        nom: string;
+        email: string;
+        // password: string;
+        telephone: string;
+        addresse: string;
+        img?: File; 
+        previewUrl?: string;
+}
+interface UserData {
+        id: number | null | undefined
+        prenom: string;
+        nom: string;
+        email: string;
+        password: string;
+        telephone: string;
+        addresse: string;
+        img?: File; 
+}
 const customTheme = (outerTheme: Theme) =>
     createTheme({
       palette: {
@@ -78,7 +98,7 @@ const customTheme = (outerTheme: Theme) =>
           },
         },
       },
-    });
+});
     
 
 export default function GestionVendeur () {
@@ -128,19 +148,9 @@ export default function GestionVendeur () {
         setOpenModif(false);
       };
 
-      const outerTheme = useTheme();
-
+     
       //*********************** Etat pour initialiser les attribut de la function ajout **************************//
-      interface UserData {
-        id: number | null | undefined
-        prenom: string;
-        nom: string;
-        email: string;
-        password: string;
-        telephone: string;
-        addresse: string;
-        img?: File; 
-      }
+    
       
       const [userData, setUserData] = useState<UserData>({
         id: null,
@@ -154,10 +164,19 @@ export default function GestionVendeur () {
       });
       
       //*********************** file images **************************//
-      const [newFile, setNewFile] = useState("");
-      const handleFileChange = (file: React.SetStateAction<string>) => {
+      // const [newFile, setNewFile] = useState("");
+      const [newFile, setNewFile] = useState<File | null>(null);
+
+      // const handleFileChange = (file: React.SetStateAction<string>) => {
+      //   setNewFile(file);
+      // };
+      const handleFileChange = (file: File | null) => {
         setNewFile(file);
       };
+
+
+    
+      
       
       //*********************** Function pour ajouter un vendeur **************************//
       const ajouterVendeur =async (e: React.FormEvent<HTMLFormElement>) => {
@@ -233,14 +252,7 @@ export default function GestionVendeur () {
               console.log(response.data.errors,'resp')
               return
               
-              //   position: "bottom-center",
-              //   autoClose: 5000,
-              //   hideProgressBar: false,
-              //   closeOnClick: true,
-              //   pauseOnHover: true,
-              //   draggable: true,
-              //   theme: "light",
-              // });
+              
             }
             if (response.status === 200) {
               console.log(response,'resp')
@@ -298,12 +310,9 @@ export default function GestionVendeur () {
 
       //*********************** Function pour lister les vendeurs **************************//
       const fetchVendeur = async () => {
-   
         try {
           if (token || role==="Admin") {
-    
-          }
-          const response = await axios.get(
+            const response = await axios.get(
             "http://localhost:8000/api/liste/vendeur",
             {
               headers: {
@@ -311,11 +320,13 @@ export default function GestionVendeur () {
               }
             }
     
-    
           );
           // console.log(response, "response");
           setUsers(response.data.Admins);
           console.log(response, 'response liste')
+    
+          }
+        
     
           // console.log(maison, "liste maison");
         } catch (error) {
@@ -342,7 +353,7 @@ export default function GestionVendeur () {
           );
           // console.log(response, "response");
         setUsersBloque(response.data.Vendeur);
-          console.log(response, 'response liste bloquer')
+          // console.log(response, 'response liste bloquer')
     
         } catch (error) {
           console.error("Erreur lors de la récupération des vendeurs bloque", error);
@@ -472,45 +483,74 @@ export default function GestionVendeur () {
       
       const displayUsersBloque = searchValueBlock === '' ? usersBloque : filteredUsersBloque;
 
-      interface UserDataModif {
-        id: number | null | undefined
-        prenom: string;
-        nom: string;
-        email: string;
-        password: string;
-        telephone: string;
-        addresse: string;
-        img?: File; 
-      }
-
       const [editUserData, setEditUserData] = useState<UserDataModif>({
-        id: null,
+        id: 0,
         prenom: '',
         nom: '',
         email: '',
-        password: '',
         telephone: '',
         addresse: '',
         img: undefined,
+        previewUrl: '',
       });
 
+
+      // Function pour recuperer les valeurs des champs à modifier
+      const recupererValeursUtilisateur = (user: UserDataModif) => {
+        // console.log(user, 'user edit')
+        if (user && user.prenom) {
+          setEditUserData({
+          id: user.id || 0,
+          prenom: user.prenom || '',
+          nom: user.nom || '',
+          email: user.email || '',
+          // password: '', 
+          telephone: user.telephone || '',
+          addresse: user.addresse || '',
+          img: user.img, 
+          });
+          setOpenModif(true);
+        } else {
+          // console.error("info vendeur modif ");
+          // Autres actions nécessaires en cas d'erreur...
+        }
+      };
+      
+
       //*********************** Function pour modifier un vendeur debut **************************//
-      const modifierVendeur = async (e: React.FormEvent<HTMLFormElement>) => {
+      const modifierVendeur = async (e: React.FormEvent<HTMLFormElement>, id: number) => {
         e.preventDefault();
         try {
           const formData = new FormData();
-           formData.append("prenom", editUserData.prenom);
-           formData.append("nom", editUserData.nom);
-           formData.append("email", editUserData.email);
-           formData.append("password", editUserData.password);
-           formData.append("addresse", editUserData.addresse);
-           formData.append("telephone", editUserData.telephone);
-           if (editUserData.img) {
+          console.log(formData,"formData avant")
+          // Ajout des données
+          if (editUserData.prenom) formData.append("prenom", editUserData.prenom);
+          if (editUserData.nom) formData.append("nom", editUserData.nom);
+          if (editUserData.email) formData.append("email", editUserData.email);
+          if (editUserData.addresse) formData.append("addresse", editUserData.addresse);
+          if (editUserData.telephone) formData.append("telephone", editUserData.telephone);
+          // if (editUserData.img) formData.append("img", editUserData.img);
+          if (newFile instanceof File) {
+            formData.append("img", newFile);
+          } else if (editUserData.img instanceof File) {
             formData.append("img", editUserData.img);
-          }
-          if (token || role==="Admin"){
-            const response = await axios.post(
-              "http://localhost:8000/api/creation/vendeur",
+}
+
+      
+          // Vérifie le contenu du formData
+          Array.from(formData.entries()).forEach(([key, value]) => {
+            console.log(`${key}: ${value}`);
+          });
+           console.log(formData,"formData apres")
+           const plainObject: Record<string, any> = {};
+            formData.forEach((value, key) => {
+              plainObject[key] = value;
+            });
+            alert(JSON.stringify(plainObject));
+
+          if (token || role === "Admin") {
+            const response = await axios.put(
+              `http://localhost:8000/api/update/vendeurs/${id}`,
               formData,
               {
                 headers: {
@@ -519,26 +559,16 @@ export default function GestionVendeur () {
                 },
               }
             );
+      
+            // Validation et succès
             if (response.data.status === 422) {
-              console.log(response.data.errors,'resp')
-              return
-              
-              
+              console.error("Validation échouée :", response.data.errors);
+              return;
             }
+      
             if (response.status === 200) {
-              console.log(response,'resp')
-              setUsers([...users, response.data]);
-              setUserData({
-                id:null,
-                prenom: '',
-                nom: '',
-                email: '',
-                password: '',
-                telephone: '',
-                addresse: '',
-                img: undefined,
-              });
-              toast.success(" Vendeur ajouter avec succées", {
+              console.log(response,"response")
+              toast.success("Vendeur mis à jour avec succès !", {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -546,24 +576,50 @@ export default function GestionVendeur () {
                 pauseOnHover: true,
                 draggable: true,
                 theme: "light",
-              })
+              });
               fetchVendeur();
-              handleClose();
-    
-            } else {
-              console.error("Erreur dans l'ajout de la maison");
+              handleCloseModif();
             }
           }
-          
-    
-          
         } catch (error) {
-           console.log(error)
-          
+          // console.error("Erreur lors de la mise à jour :", error);
         }
-
-      }
+      };
+      
+      
+      
       //*********************** Function pour modifier un vendeur fin **************************//
+
+        // Nettoie l'URL d'objet créé pour l'aperçu
+        useEffect(() => {
+          return () => {
+            if (editUserData.previewUrl) {
+              URL.revokeObjectURL(editUserData.previewUrl);
+            }
+          };
+        }, [editUserData.previewUrl]);
+        
+        const handleFileChangeFour = (file: File) => {
+          if (file) {
+            const objectUrl = URL.createObjectURL(file);
+            setEditUserData((prevData) => ({
+              ...prevData,
+              img: file, 
+              previewUrl: objectUrl, 
+            }));
+          }
+        };
+        
+        const handleChangeEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
+          const { name, value, type, files } = e.target;
+          setEditUserData((prevData) => ({
+            ...prevData,
+            [name]: type === 'file' ? files?.[0] : value,
+          }));
+        };
+        
+
+  
       
       
       
@@ -639,7 +695,7 @@ export default function GestionVendeur () {
           </div>
 
           <div className='vendeurs-icons flex justify-around gap-10 '>
-            <Button onClick={() => handleClickOpenModif(user.id)}><FontAwesomeIcon icon={faEdit} style={{color:'#fe5300', fontSize:'32px'}} /></Button>
+            <Button onClick={() => recupererValeursUtilisateur(user)}><FontAwesomeIcon icon={faEdit} style={{color:'#fe5300', fontSize:'32px'}} /></Button>
             <Button  onClick={() => user.id && bloquerVendeur(user.id)}><FontAwesomeIcon icon={faLock} style={{color:'#fe5300', fontSize:'32px'}} /></Button>
           </div>
 
@@ -715,7 +771,7 @@ export default function GestionVendeur () {
 
         {/* ************************************ Modal modifier debut   ******************************************* */}
         <div>
-            <BootstrapDialog
+            <Dialog
                 onClose={handleCloseModif}
                 aria-labelledby="customized-dialog-title"
                 open={openModif}
@@ -736,67 +792,152 @@ export default function GestionVendeur () {
                 <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
-                    <div className='flex-content-ban-product' >
-                        <Box
-                                                sx={{
-                                                    display: 'grid',
-                                                    gridTemplateColumns: { sm: '1fr 1fr ' },
-                                                    gap: 2,
-                                                }}
-                                                id='box-content-form'
-                                                >
-                                                <ThemeProvider theme={customTheme(outerTheme)}>
-                                                    <TextField type="text" label="Prenom" />
-                                                    <TextField type="text" label="Nom" />
-                                                </ThemeProvider>
-                                                
-                        </Box>
-                        <Box
-                                                sx={{
-                                                    display: 'grid',
-                                                    gridTemplateColumns: { sm: '1fr 1fr ' },
-                                                    gap: 2,
-                                                }}
-                                                id='box-content-form'
-                                                >
-                                                <ThemeProvider theme={customTheme(outerTheme)}>
-                                                <TextField type="email" label="Email" />
-                                                    <TextField type="password" label="Password" />
-                                                </ThemeProvider>
-                                                
-                        </Box>
-                        <Box
-                                                sx={{
-                                                    display: 'grid',
-                                                    gridTemplateColumns: { sm: '1fr 1fr ' },
-                                                    gap: 2,
-                                                }}
-                                                id='box-content-form'
-                                                >
-                                                <ThemeProvider theme={customTheme(outerTheme)}>
-                                                    <TextField type="text" label="Telephone" />
-                                                    <TextField type="text" label="Adresse" />
-                                                </ThemeProvider>
-                                                
-                        </Box>
-                                                
-                                                
-                                            
-                                            
-                                            
-                                            
+                   
+                    <form onSubmit={(e) => {
+                        if (editUserData.id !== null && editUserData.id !== undefined) {
+                          modifierVendeur(e, editUserData.id);
+                        } else {
+                          console.error("L'ID de l'utilisateur est manquant.");
+                        }
+                      }}
+                      id="form-vendeur-modifier">
+                    <div className='flex-content-ban-product'>
+                      <Box
+                        sx={{
+                          display: 'grid',
+                          gridTemplateColumns: { sm: '1fr 1fr ' },
+                          gap: 2,
+                        }}
+                        id='box-content-form'
+                      >
+                        
+                          <TextField
+                            type="text"
+                            label="Prenom"
+                            name="prenom"
+                            value={editUserData.prenom}
+                            // onChange={(e) => setEditUserData({...editUserData, prenom: e.target.value})}
+                            onChange={handleChangeEdit}
+                          />
+                          <TextField
+                            type="text"
+                            label="Nom"
+                             name="nom"
+                            value={editUserData.nom}
+                            // onChange={(e) => setEditUserData({...editUserData, nom: e.target.value})}
+                            onChange={handleChangeEdit}
+                          />
+                        
+                      </Box>
+
+                      <Box
+                        sx={{
+                          display: 'grid',
+                          gridTemplateColumns: { sm: '1fr 1fr ' },
+                          gap: 2,
+                        }}
+                        id='box-content-form'
+                      >
+                       
+                          <TextField
+                            type="email"
+                            label="Email"
+                            name='email'
+                            value={editUserData.email}
+                            // onChange={(e) => setEditUserData({...editUserData, email: e.target.value})}
+                            onChange={handleChangeEdit}
+                          />
+                           <TextField
+                            type="text"
+                            label="Telephone"
+                            name='telephone'
+                            value={editUserData.telephone}
+                            // onChange={(e) => setEditUserData({...editUserData, telephone: e.target.value})}
+                            onChange={handleChangeEdit}
+                          />
+                        
+                      </Box>
+
+                      <Box
+                        sx={{
+                          display: 'grid',
+                          gridTemplateColumns: { sm: '1fr ' },
+                          gap: 2,
+                        }}
+                        id='box-content-form'
+                      >
+                        
+                         
+                          <TextField
+                            type="text"
+                            label="Adresse"
+                            name='adresse'
+                            value={editUserData.addresse}
+                            // onChange={(e) => setEditUserData({...editUserData, addresse: e.target.value})}
+                            onChange={handleChangeEdit}
+                          />
+                       
+                      </Box>
+                      <Box
+                        sx={{
+                          display: 'grid',
+                          gridTemplateColumns: { sm: '1fr ' },
+                          gap: 2,
+                        }}
+                        id='box-content-form'
+                      >
+                        
+                        <div>
+                            <label htmlFor="inputimage">Image</label>
+                            <div>
+                              {editUserData.previewUrl ? (
+                                <img src={editUserData.previewUrl} alt="Preview" width={200} height={100} />
+                              ) : typeof editUserData.img === 'string' ? (
+                                <img
+                                  src={`http://localhost:8000/storage/${editUserData.img}`}
+                                  alt="Current"
+                                  width={200}
+                                  height={100}
+                                />
+                              ) : (
+                                <p>Aucune image sélectionnée.</p>
+                              )}
+                            </div>
+                            <input
+                              type="file"
+                              id="inputimage"
+                              accept="image/*"
+                              onChange={(e) => {
+                                if (e.target.files && e.target.files[0]) {
+                                  handleFileChangeFour(e.target.files[0]);
+                                }
+                              }}
+                            />
+                        </div>
+                      </Box>
                     </div>
+                    <DialogActions>
+                      <Button
+                        type="submit" 
+                        id="form-btn-box"
+                      >
+                        Modifier
+                      </Button>
+                      <Button
+                        type='button'
+                        onClick={handleCloseModif}
+                        style={{ border: '2px solid #fe5300', backgroundColor: '#fff', color: '#fe5300' }}
+                      >
+                        Annuler
+                      </Button>
+                    </DialogActions>
+                    </form>
+
+                    
                 
                 </DialogContent>
-                <DialogActions>
-                <Button autoFocus onClick={handleCloseModif} id="form-btn-box">
-                    Modifier
-                </Button>
-                <Button autoFocus onClick={handleCloseModif} style={{border:'2px solid #fe5300', backgroundColor:'#fff', color:'#fe5300'}}>
-                    Annuler
-                </Button>
-                </DialogActions>
-            </BootstrapDialog>
+                
+            </Dialog>
         </div>
         {/* ************************************ Modal modifier fin   ******************************************* */}
 
@@ -911,6 +1052,7 @@ export default function GestionVendeur () {
 
 
     </div>
+    
   )
 
 }

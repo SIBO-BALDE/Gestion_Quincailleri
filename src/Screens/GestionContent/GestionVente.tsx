@@ -105,7 +105,7 @@ export default function GestionVente() {
 
     function createData(
       image: string,
-      titre: string,
+      titre: number,
       quantite: number,
       category: string,
       prix: number,
@@ -117,10 +117,10 @@ export default function GestionVente() {
     }
     
     const rows = [
-      createData('img', 'Porte cles', 40 , 'Menuiserie', 25000, 'Abdou Ba', '24/11/2024' ),
-      createData('img', 'Chaise anglaise', 10 , 'Plombrie', 10000 , 'Aly Sow', '14/09/2024'),
-      createData('img', 'Ampoule', 20 , 'Electricité', 25000 , 'Ousmane Diao', '01/07/2024'),
-      createData('img', 'Ciment', 30 , 'Mençonnerie', 25000, 'Khady Balde', '18/01/2024' ),
+      createData('img', 100, 40 , 'Menuiserie', 25000, 'Abdou Ba', '24/11/2024' ),
+      createData('img',100, 10 , 'Plombrie', 10000 , 'Aly Sow', '14/09/2024'),
+      createData('img', 100, 20 , 'Electricité', 25000 , 'Ousmane Diao', '01/07/2024'),
+      createData('img', 100, 30 , 'Mençonnerie', 25000, 'Khady Balde', '18/01/2024' ),
       
       
      
@@ -149,13 +149,13 @@ export default function GestionVente() {
           <TableHead style={{backgroundColor:'#fe5300',color:'#fff'}}>
             <TableRow>
               <TableCell className='text-white'>Image</TableCell>
-              <TableCell align="right" className='text-white'>Titre</TableCell>
-              <TableCell align="right" className='text-white'>Quantité</TableCell>
-              <TableCell align="right" className='text-white'>Catégorie</TableCell>
-              <TableCell align="right" className='text-white'>Prix</TableCell>
-              <TableCell align="right" className='text-white'>Date</TableCell>
-              <TableCell align="right" className='text-white'>Vendeur</TableCell>
-              <TableCell align="right" className='text-white'>Action</TableCell>
+              <TableCell  className='text-white'>Quantité total </TableCell>
+              <TableCell  className='text-white'>Quantité Vendu</TableCell>
+              <TableCell  className='text-white'>Catégorie</TableCell>
+              <TableCell  className='text-white'>Prix</TableCell>
+              <TableCell  className='text-white'>Vendeur</TableCell>
+              <TableCell  className='text-white'>Date</TableCell>
+              <TableCell align="center"  className='text-white'>Action</TableCell>
               
             </TableRow>
           </TableHead>
@@ -168,13 +168,13 @@ export default function GestionVente() {
                 <TableCell component="th" scope="row">
                   {row.image}
                 </TableCell>
-                <TableCell align="right">{row.titre}</TableCell>
-                <TableCell align="right">{row.quantite}</TableCell>
-                <TableCell align="right">{row.category}</TableCell>
-                <TableCell align="right">{row.prix}</TableCell>
-                <TableCell align="right">{row.vendeur}</TableCell>
-                <TableCell align="right">{row.date}</TableCell>
-                <TableCell align="right">
+                <TableCell >{row.titre}</TableCell>
+                <TableCell >{row.quantite}</TableCell>
+                <TableCell >{row.category}</TableCell>
+                <TableCell >{row.prix}</TableCell>
+                <TableCell >{row.vendeur}</TableCell>
+                <TableCell >{row.date}</TableCell>
+                <TableCell >
                   <Button onClick={handleClickOpenModif}><FontAwesomeIcon icon={faEdit} style={{color:'#003e1c', fontSize:'20px'}}/></Button>
                   <Button><FontAwesomeIcon icon={faTrash} style={{color:'#003e1c', fontSize:'20px'}} /></Button>
                 </TableCell>
@@ -222,7 +222,7 @@ export default function GestionVente() {
                                             id='box-content-form'
                                             >
                                             <ThemeProvider theme={customTheme(outerTheme)}>
-                                                <TextField type="text" label="Titre" />
+                                                <TextField type="number" label="quantité" />
                                                 <FormControl fullWidth variant="outlined">
     
                                                   <InputLabel id="demo-simple-select-label">Produit</InputLabel>

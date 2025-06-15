@@ -25,6 +25,10 @@ import ListItems from '../../../Components/Admin/ListItems/ListItems';
 import RenderComponent from '../../../Components/Admin/RenderComponent/RenderComponent';
 import { Image } from 'react-bootstrap';
 import { Button } from '@mui/material';
+import axios from 'axios';
+import {  toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Auth/AuthContext/AuthContext'
 
 
 
@@ -102,6 +106,12 @@ export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
   const [selectedComponent, setSelectedComponent] = React.useState('Dashboard');
   const [activeLinkComponent, setActiveLinkComponent] = React.useState('Dashboard');
+  const navigate =useNavigate()
+  const { token, role } = useAuth();
+  
+  
+
+
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -112,6 +122,81 @@ export default function Dashboard() {
     setSelectedComponent(component); 
     setActiveLinkComponent(component);
   };
+
+
+   //*********************** Function pour logout  **************************//
+
+   const Signout = async () => {
+    if (!token || role !== "Admin") {
+      toast.error("Vous devez être connecté en tant qu'administrateur pour vous déconnecter.", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+      return;
+    }
+  
+    try {
+      // Appeler l'API pour la déconnexion
+      const response = await axios.post(
+        "http://localhost:8000/api/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (response.status === 200) {
+        
+        localStorage.removeItem("tokencle");
+        localStorage.removeItem("rolecle");
+  
+        // Afficher un message de succès
+        toast.success("Déconnexion réussie. À bientôt !", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+  
+        // Rediriger vers la page de connexion
+        navigate("/login");
+      } else {
+        toast.error("Erreur lors de la déconnexion. Veuillez réessayer.", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion", error);
+      toast.error("Une erreur est survenue lors de la déconnexion.", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+    }
+  };
+  
+  
+  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -194,7 +279,9 @@ export default function Dashboard() {
               color:'white',
               // height:'auto'
 
-            }}>
+            }}
+            onClick={Signout}
+            >
               Deconnexion
             </Button>
             </div>

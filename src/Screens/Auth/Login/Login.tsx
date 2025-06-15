@@ -114,7 +114,7 @@ export default function Login() {
            )
            if (response.status === 200) {
             const data = response.data;
-            console.log('data', data)
+            // console.log('data', data)
             
             const tokenAuth= data.token
             const roleAuth= data.roles[0]
